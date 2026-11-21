@@ -24,7 +24,7 @@ window.SITE = {
   tiktokUser: "@grazielemaciel_beauty",
 
   // Localização (a mesma do perfil do Instagram)
-  endereco: "", // opcional: endereço por extenso (ex: "Rua X, 123 - Bairro, Cidade - SC") — ativa o mapa embutido
+  endereco: "R. Ella Stahmer - Pouso Redondo, SC, 89172-000",
   mapsLink: "https://maps.app.goo.gl/m59g83TT7j42997n6", // link do Google Maps (botão "Como chegar")
   horario: "Atendimento com hora marcada", // opcional
 
