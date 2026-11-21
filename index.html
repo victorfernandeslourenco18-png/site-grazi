@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Graziele Maciel Beauty</title>
+  <meta name="description" content="Graziele Maciel Beauty — agende seu horário pelo WhatsApp." />
+  <meta name="theme-color" content="#1c1416" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav" id="nav">
+    <a href="#inicio" class="nav__logo"><span data-bind="nome"></span> <em data-bind="marca"></em></a>
+    <button class="nav__toggle" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span></button>
+    <nav class="nav__menu">
+      <a href="#sobre">Sobre</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#videos">Vídeos</a>
+      <a href="#local">Localização</a>
+      <a href="#" class="btn btn--sm js-whats">Agendar</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <div class="hero__photo-wrap reveal"><div class="hero__photo">
+        <img data-src-bind="fotoPerfil" alt="Graziele Maciel" />
+        <span class="monogram" aria-hidden="true">GM</span>
+        <span class="hero__ring"></span>
+      </div></div>
+      <div class="hero__text">
+        <p class="eyebrow reveal" data-bind="especialidades"></p>
+        <h1 class="reveal"><span data-bind="nome"></span><br /><em data-bind="marca"></em></h1>
+        <p class="hero__slogan reveal" data-bind="slogan"></p>
+        <div class="hero__cta reveal">
+          <a href="#" class="btn js-whats">Agendar pelo WhatsApp</a>
+          <a href="#galeria" class="btn btn--ghost">Ver trabalhos</a>
+        </div>
+        <div class="socials reveal" id="heroSocials"></div>
+      </div>
+    </div>
+    <a href="#links" class="hero__scroll" aria-label="Rolar"><span></span></a>
+  </section>
+
+  <!-- LINKS RÁPIDOS (estilo bio) -->
+  <section class="section links" id="links">
+    <div class="container narrow">
+      <h2 class="title reveal">Links <em>rápidos</em></h2>
+      <div class="links__list" id="linksList"></div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="section about" id="sobre">
+    <div class="container about__grid">
+      <div class="about__text reveal">
+        <p class="eyebrow">Sobre mim</p>
+        <h2 class="title">Beleza com <em>propósito</em></h2>
+        <p data-bind="descricao"></p>
+        <ul class="about__stats">
+          <li><strong>100%</strong><span>atendimento personalizado</span></li>
+          <li><strong>♥</strong><span>cuidado em cada detalhe</span></li>
+        </ul>
+      </div>
+      <div class="about__img reveal"><span class="monogram" aria-hidden="true">GM</span><img data-src-bind="fotoPerfil" alt="" /></div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="section services" id="servicos">
+    <div class="container">
+      <p class="eyebrow center reveal">O que eu faço</p>
+      <h2 class="title center reveal">Meus <em>serviços</em></h2>
+      <div class="services__grid" id="servicesGrid"></div>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section class="section gallery" id="galeria">
+    <div class="container">
+      <p class="eyebrow center reveal">Os mais amados do Instagram</p>
+      <h2 class="title center reveal">Trabalhos que <em>viralizaram</em></h2>
+      <div class="gallery__grid" id="galleryGrid"></div>
+      <div class="center mt reveal"><a class="btn btn--ghost js-insta" target="_blank" rel="noopener">Ver mais no Instagram</a></div>
+    </div>
+  </section>
+
+  <!-- VÍDEOS -->
+  <section class="section videos" id="videos">
+    <div class="container">
+      <p class="eyebrow center reveal">Assista</p>
+      <h2 class="title center reveal">Vídeos em <em>destaque</em></h2>
+      <div class="videos__grid" id="videosGrid"></div>
+    </div>
+  </section>
+
+  <!-- LOCALIZAÇÃO -->
+  <section class="section location" id="local">
+    <div class="container location__grid">
+      <div class="reveal">
+        <p class="eyebrow">Onde estou</p>
+        <h2 class="title">Venha me <em>visitar</em></h2>
+        <p class="location__addr" id="addr"></p>
+        <p class="muted" data-bind="horario"></p>
+        <div class="hero__cta">
+          <a class="btn js-whats" href="#">Agendar horário</a>
+          <a class="btn btn--ghost" id="mapsBtn" target="_blank" rel="noopener">Como chegar</a>
+        </div>
+      </div>
+      <div class="location__map reveal" id="mapBox"></div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta">
+    <div class="container center reveal">
+      <h2 class="title">Pronta para se sentir <em>ainda mais linda?</em></h2>
+      <a href="#" class="btn btn--light js-whats">Quero agendar agora</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="socials" id="footerSocials"></div>
+    <p>© <span id="year"></span> <span data-bind="nome"></span> <span data-bind="marca"></span>. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- WhatsApp flutuante -->
+  <a href="#" class="float-whats js-whats" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor"><path d="M16.04 3C9.4 3 4 8.36 4 14.97c0 2.11.56 4.17 1.62 5.99L4 29l8.27-1.58a12.1 12.1 0 0 0 3.77.6C22.68 28.02 28 22.66 28 16.05 28 9.45 22.68 3 16.04 3Zm0 22.83c-1.24 0-2.46-.22-3.6-.65l-.26-.1-4.9.94.97-4.75-.17-.28a9.86 9.86 0 0 1-1.5-5.02c0-5.47 4.5-9.92 9.47-9.92 5.2 0 9.73 4.3 9.73 9.92 0 5.46-4.52 9.86-9.74 9.86Zm5.4-7.37c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.46-.88-.78-1.47-1.75-1.65-2.04-.17-.3-.02-.46.13-.6.13-.14.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.57-.49-.5-.67-.5h-.57c-.2 0-.52.08-.79.37-.27.3-1.04 1.01-1.04 2.47s1.06 2.86 1.21 3.06c.15.2 2.09 3.18 5.06 4.46.71.3 1.26.49 1.69.62.71.22 1.36.19 1.87.12.57-.09 1.75-.71 2-1.4.25-.69.25-1.28.17-1.4-.07-.13-.27-.2-.57-.35Z"/></svg>
+  </a>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__close" aria-label="Fechar">×</button>
+    <button class="lightbox__nav lightbox__prev" aria-label="Anterior">‹</button>
+    <figure><img alt="" /><figcaption></figcaption></figure>
+    <button class="lightbox__nav lightbox__next" aria-label="Próxima">›</button>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
