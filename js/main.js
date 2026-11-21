@@ -61,21 +61,24 @@
     <article class="service reveal"><span class="service__icon">${esc(s.icone)}</span><h3>${esc(s.titulo)}</h3><p>${esc(s.texto)}</p></article>`).join("");
 
   // ---- Galeria ----
+  // Cada item: { src: "img/galeria/01.jpg", post: "link do post", legenda: "..." }
+  // Com "post", a foto leva direto ao Instagram. Sem "src", mostra um cartão estilizado.
   const gal = S.galeria || [];
   $("#galleryGrid").innerHTML = gal.length
     ? gal.map((g, i) => {
-        const m = g.post && g.post.match(/instagram\.com\/(?:p|reel|reels|tv)\/([\w-]+)/);
-        if (m) return `<div class="gallery__post reveal"><iframe src="https://www.instagram.com/p/${m[1]}/embed" loading="lazy" scrolling="no" allowtransparency="true" title="Post do Instagram"></iframe><a class="gallery__open" href="https://www.instagram.com/p/${m[1]}/" target="_blank" rel="noopener">${ICONS.insta} Ver no Instagram</a></div>`;
-        return `<figure class="gallery__item reveal" data-i="${i}"><img src="${esc(g.src)}" alt="${esc(g.legenda || "")}" loading="lazy" />${g.legenda ? `<figcaption>${esc(g.legenda)}</figcaption>` : ""}</figure>`;
+        const cap = g.legenda ? `<figcaption>${esc(g.legenda)}</figcaption>` : "";
+        if (g.src && g.post) return `<a class="gallery__item gallery__item--link reveal" href="${esc(g.post)}" target="_blank" rel="noopener"><img src="${esc(g.src)}" alt="${esc(g.legenda || "Post do Instagram")}" loading="lazy" /><span class="gallery__badge">${ICONS.insta}</span>${cap}</a>`;
+        if (g.src) return `<figure class="gallery__item reveal" data-i="${i}"><img src="${esc(g.src)}" alt="${esc(g.legenda || "")}" loading="lazy" />${cap}</figure>`;
+        return `<a class="gallery__placeholder reveal" href="${esc(g.post)}" target="_blank" rel="noopener"><span class="gallery__placeholder-icon">${ICONS.insta}</span><strong>${esc(g.legenda || "Post em destaque")}</strong><span>Ver no Instagram →</span></a>`;
       }).join("")
     : `<p class="empty">Adicione as fotos em <code>img/galeria/</code> e liste-as em <code>js/config.js</code>.</p>`;
+  if (gal.some((g) => !g.src)) $("#galleryGrid").classList.add("gallery__grid--cards");
 
   // Lightbox
   const lb = $("#lightbox"), lbImg = $("img", lb), lbCap = $("figcaption", lb);
   let cur = 0;
   const show = (i) => { cur = (i + gal.length) % gal.length; lbImg.src = gal[cur].src; lbCap.textContent = gal[cur].legenda || ""; };
   const close = () => { lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true"); };
-  if (gal.some((g) => g.post)) $("#galleryGrid").classList.add("gallery__grid--posts");
   $("#galleryGrid").addEventListener("click", (e) => {
     const f = e.target.closest(".gallery__item"); if (!f) return;
     show(+f.dataset.i); lb.classList.add("open"); lb.setAttribute("aria-hidden", "false");
@@ -92,28 +95,21 @@
   });
 
   // ---- Vídeos (TikTok / Instagram / YouTube) ----
-  function embed(url) {
-    let m;
-    if ((m = url.match(/tiktok\.com\/.*\/video\/(\d+)/))) return { src: `https://www.tiktok.com/embed/v2/${m[1]}`, tall: true };
-    if ((m = url.match(/instagram\.com\/(?:p|reel|reels|tv)\/([\w-]+)/))) return { src: `https://www.instagram.com/p/${m[1]}/embed`, tall: true };
-    if ((m = url.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/))) return { src: `https://www.youtube.com/embed/${m[1]}`, tall: /shorts\//.test(url) };
-    return null;
-  }
+  // Cada vídeo vira um cartão com capa + título que abre direto no TikTok.
+  // "capa" (opcional) = imagem em img/videos/. Sem capa, usa um fundo estilizado.
   const vids = S.videos || [];
   $("#videosGrid").innerHTML = vids.length
-    ? vids.map((v, n) => {
-        const e = embed(v.url);
-        const body = e
-          ? `<div class="video__frame ${e.tall ? "" : "video__frame--wide"}"><iframe src="${esc(e.src)}" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="${esc(v.titulo || "Vídeo")}"></iframe></div>`
-          : `<a class="video__cover" href="${esc(v.url)}" target="_blank" rel="noopener" aria-label="Assistir: ${esc(v.titulo || "vídeo")}">
-               <span class="video__badge">${/tiktok/.test(v.url) ? ICONS.tiktok + " TikTok" : ICONS.play + " Vídeo"}</span>
-               <span class="video__play">${ICONS.play}</span>
-               <span class="video__num">${String(n + 1).padStart(2, "0")}</span>
-               <strong class="video__title">${esc(v.titulo || "Assistir vídeo")}</strong>
-               <span class="video__cta">Assistir agora →</span>
-             </a>`;
-        return `<article class="video reveal">${body}${e && v.titulo ? `<h3>${esc(v.titulo)}</h3>` : ""}</article>`;
-      }).join("")
+    ? vids.map((v, n) => `
+        <article class="video reveal">
+          <a class="video__cover ${v.capa ? "has-capa" : ""}" href="${esc(v.url)}" target="_blank" rel="noopener" aria-label="Assistir no TikTok: ${esc(v.titulo || "vídeo")}">
+            ${v.capa ? `<img class="video__img" src="${esc(v.capa)}" alt="" loading="lazy" />` : ""}
+            <span class="video__badge">${/tiktok/.test(v.url) ? ICONS.tiktok + " TikTok" : ICONS.play + " Vídeo"}</span>
+            <span class="video__play">${ICONS.play}</span>
+            <span class="video__num">${String(n + 1).padStart(2, "0")}</span>
+            <strong class="video__title">${esc(v.titulo || "Assistir vídeo")}</strong>
+            <span class="video__cta">Assistir no TikTok →</span>
+          </a>
+        </article>`).join("")
     : `<p class="empty">Adicione os links dos vídeos em <code>js/config.js</code>.</p>`;
   if (!vids.length && !S.tiktok) $("#videos").style.display = "none";
 
