@@ -1,8 +1,7 @@
 /* =========================================================
    CONFIGURAÇÃO DO SITE — Graziele Maciel Beauty
    Edite SOMENTE este arquivo para trocar textos, links,
-   fotos e vídeos. Campos marcados com  ⚠ PREENCHER  ainda
-   precisam dos dados reais da cliente.
+   fotos e vídeos.
    ========================================================= */
 window.SITE = {
   nome: "Graziele Maciel",
@@ -13,7 +12,7 @@ window.SITE = {
     "Atendimento personalizado, técnicas atualizadas e todo o cuidado que você merece. Agende seu horário e viva essa experiência.",
 
   // Foto de perfil / capa (coloque o arquivo em img/)
-  fotoPerfil: "img/perfil.jpg", // ⚠ PREENCHER (salve a foto de perfil do Instagram aqui)
+  fotoPerfil: "img/perfil.jpg",
 
   // WhatsApp: só números, com DDI 55 + DDD. Ex: "5511999998888"
   whatsapp: "554792077276",
@@ -49,12 +48,11 @@ window.SITE = {
   /* Vídeos do bio site. Aceita links do TikTok, Instagram (reel/post) e YouTube.
      O site gera o player automaticamente. */
   videos: [
-    // Links curtos do TikTok abrem o vídeo no app. Com o link completo
-    // (tiktok.com/@usuario/video/123...) o player aparece embutido no site.
-    { url: "https://vt.tiktok.com/ZSpoQPH4r/", titulo: "Aprenda a higienizar sua extensão" },
-    { url: "https://vt.tiktok.com/ZSpoQQgvK/", titulo: "Tutorial: mimo para clientes" },
-    { url: "https://vt.tiktok.com/ZSpoQ6EJh/", titulo: "Conheça o Demodex! O bichinho que vive aí nos seus olhos" },
-    { url: "https://vt.tiktok.com/ZSpoQm3LN/", titulo: "Aprenda a treinar acoplagem sem modelo!" },
+    // Use o link completo (tiktok.com/@usuario/video/123...) para o player embutido.
+    { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7429424428087315718", titulo: "Aprenda a higienizar sua extensão" },
+    { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7482800778604809477", titulo: "Tutorial: mimo para clientes" },
+    { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7498473794906885381", titulo: "Conheça o Demodex! O bichinho que vive aí nos seus olhos" },
+    { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7416355138392083717", titulo: "Aprenda a treinar acoplagem sem modelo!" },
   ],
 
   // Links extras (ficam na seção "Links rápidos", estilo bio)
