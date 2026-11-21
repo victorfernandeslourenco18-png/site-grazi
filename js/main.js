@@ -20,6 +20,7 @@
     if (src) el.src = src;
     el.onerror = () => (el.style.visibility = "hidden"); // fallback: mostra o gradiente do fundo
     if (!src) el.style.visibility = "hidden";
+    el.addEventListener("load", () => el.parentElement.classList.add("has-img"));
   });
   $("#year").textContent = new Date().getFullYear();
 
@@ -29,7 +30,7 @@
     : S.instagram;
   $$(".js-whats").forEach((a) => { a.href = whatsUrl; a.target = "_blank"; a.rel = "noopener"; });
   $$(".js-insta").forEach((a) => (a.href = S.instagram));
-  const mapsUrl = S.endereco ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(S.endereco)}` : null;
+  const mapsUrl = S.mapsLink || (S.endereco ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(S.endereco)}` : null);
 
   const socials = [
     S.whatsapp && { url: whatsUrl, icon: "whats", label: "WhatsApp" },
@@ -45,7 +46,7 @@
     S.whatsapp && { url: whatsUrl, icon: "whats", t: "Agendar pelo WhatsApp", s: "Resposta rápida" },
     S.instagram && { url: S.instagram, icon: "insta", t: "Instagram", s: S.instagramUser },
     S.tiktok && { url: S.tiktok, icon: "tiktok", t: "TikTok", s: S.tiktokUser },
-    mapsUrl && { url: mapsUrl, icon: "pin", t: "Como chegar", s: S.endereco },
+    mapsUrl && { url: mapsUrl, icon: "pin", t: "Como chegar", s: S.endereco || "Abrir no Google Maps" },
     ...(S.linksExtras || []).map((l) => ({ url: l.url, icon: "link", t: l.titulo, s: "" })),
   ].filter(Boolean);
   $("#linksList").innerHTML = linkCards.map((l) => `
@@ -62,7 +63,11 @@
   // ---- Galeria ----
   const gal = S.galeria || [];
   $("#galleryGrid").innerHTML = gal.length
-    ? gal.map((g, i) => `<figure class="gallery__item reveal" data-i="${i}"><img src="${esc(g.src)}" alt="${esc(g.legenda || "")}" loading="lazy" />${g.legenda ? `<figcaption>${esc(g.legenda)}</figcaption>` : ""}</figure>`).join("")
+    ? gal.map((g, i) => {
+        const m = g.post && g.post.match(/instagram\.com\/(?:p|reel|reels|tv)\/([\w-]+)/);
+        if (m) return `<div class="gallery__post reveal"><iframe src="https://www.instagram.com/p/${m[1]}/embed" loading="lazy" scrolling="no" allowtransparency="true" title="Post do Instagram"></iframe><a class="gallery__open" href="https://www.instagram.com/p/${m[1]}/" target="_blank" rel="noopener">${ICONS.insta} Ver no Instagram</a></div>`;
+        return `<figure class="gallery__item reveal" data-i="${i}"><img src="${esc(g.src)}" alt="${esc(g.legenda || "")}" loading="lazy" />${g.legenda ? `<figcaption>${esc(g.legenda)}</figcaption>` : ""}</figure>`;
+      }).join("")
     : `<p class="empty">Adicione as fotos em <code>img/galeria/</code> e liste-as em <code>js/config.js</code>.</p>`;
 
   // Lightbox
@@ -70,6 +75,7 @@
   let cur = 0;
   const show = (i) => { cur = (i + gal.length) % gal.length; lbImg.src = gal[cur].src; lbCap.textContent = gal[cur].legenda || ""; };
   const close = () => { lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true"); };
+  if (gal.some((g) => g.post)) $("#galleryGrid").classList.add("gallery__grid--posts");
   $("#galleryGrid").addEventListener("click", (e) => {
     const f = e.target.closest(".gallery__item"); if (!f) return;
     show(+f.dataset.i); lb.classList.add("open"); lb.setAttribute("aria-hidden", "false");
@@ -95,12 +101,18 @@
   }
   const vids = S.videos || [];
   $("#videosGrid").innerHTML = vids.length
-    ? vids.map((v) => {
+    ? vids.map((v, n) => {
         const e = embed(v.url);
         const body = e
           ? `<div class="video__frame ${e.tall ? "" : "video__frame--wide"}"><iframe src="${esc(e.src)}" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="${esc(v.titulo || "Vídeo")}"></iframe></div>`
-          : `<a class="video__link btn" href="${esc(v.url)}" target="_blank" rel="noopener">${ICONS.play} Assistir vídeo</a>`;
-        return `<article class="video reveal">${body}${v.titulo ? `<h3>${esc(v.titulo)}</h3>` : ""}</article>`;
+          : `<a class="video__cover" href="${esc(v.url)}" target="_blank" rel="noopener" aria-label="Assistir: ${esc(v.titulo || "vídeo")}">
+               <span class="video__badge">${/tiktok/.test(v.url) ? ICONS.tiktok + " TikTok" : ICONS.play + " Vídeo"}</span>
+               <span class="video__play">${ICONS.play}</span>
+               <span class="video__num">${String(n + 1).padStart(2, "0")}</span>
+               <strong class="video__title">${esc(v.titulo || "Assistir vídeo")}</strong>
+               <span class="video__cta">Assistir agora →</span>
+             </a>`;
+        return `<article class="video reveal">${body}${e && v.titulo ? `<h3>${esc(v.titulo)}</h3>` : ""}</article>`;
       }).join("")
     : `<p class="empty">Adicione os links dos vídeos em <code>js/config.js</code>.</p>`;
   if (!vids.length && !S.tiktok) $("#videos").style.display = "none";
@@ -111,8 +123,11 @@
     $("#mapsBtn").href = mapsUrl;
     $("#mapBox").innerHTML = `<iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa" src="https://www.google.com/maps?q=${encodeURIComponent(S.endereco)}&output=embed"></iframe>`;
   } else {
-    $("#addr").textContent = "Endereço em breve.";
-    $("#mapsBtn").style.display = "none";
+    $("#addr").textContent = mapsUrl ? "Clique em “Como chegar” para abrir a rota no Google Maps." : "Endereço em breve.";
+    if (mapsUrl) {
+      $("#mapsBtn").href = mapsUrl;
+      $("#mapBox").innerHTML = `<a class="map-card" href="${esc(mapsUrl)}" target="_blank" rel="noopener"><span class="map-card__pin">${ICONS.pin}</span><strong>Graziele Maciel Beauty</strong><span>Abrir localização no Google Maps →</span></a>`;
+    } else $("#mapsBtn").style.display = "none";
   }
 
   // ---- Nav ----

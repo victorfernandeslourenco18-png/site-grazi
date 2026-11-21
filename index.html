@@ -32,10 +32,11 @@
     <div class="hero__inner">
       <div class="hero__photo reveal">
         <img data-src-bind="fotoPerfil" alt="Graziele Maciel" />
+        <span class="monogram" aria-hidden="true">GM</span>
         <span class="hero__ring"></span>
       </div>
       <div class="hero__text">
-        <p class="eyebrow reveal">Beauty Studio</p>
+        <p class="eyebrow reveal" data-bind="especialidades"></p>
         <h1 class="reveal"><span data-bind="nome"></span><br /><em data-bind="marca"></em></h1>
         <p class="hero__slogan reveal" data-bind="slogan"></p>
         <div class="hero__cta reveal">
@@ -68,7 +69,7 @@
           <li><strong>♥</strong><span>cuidado em cada detalhe</span></li>
         </ul>
       </div>
-      <div class="about__img reveal"><img data-src-bind="fotoPerfil" alt="" /></div>
+      <div class="about__img reveal"><span class="monogram" aria-hidden="true">GM</span><img data-src-bind="fotoPerfil" alt="" /></div>
     </div>
   </section>
 
