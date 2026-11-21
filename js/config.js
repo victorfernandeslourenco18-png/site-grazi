@@ -50,8 +50,8 @@ window.SITE = {
   videos: [
     { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7429424428087315718", titulo: "Aprenda a higienizar sua extensão", capa: "img/videos/video1.jpg" },
     { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7482800778604809477", titulo: "Tutorial: mimo para clientes", capa: "img/videos/video2.jpg" },
-    { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7498473794906885381", titulo: "Conheça o Demodex! O bichinho que vive aí nos seus olhos" },
-    { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7416355138392083717", titulo: "Aprenda a treinar acoplagem sem modelo!" },
+    { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7498473794906885381", titulo: "Conheça o Demodex! O bichinho que vive aí nos seus olhos", capa: "img/videos/video3.jpg" },
+    { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7416355138392083717", titulo: "Aprenda a treinar acoplagem sem modelo!", capa: "img/videos/video4.jpg" },
   ],
 
   // Links extras (ficam na seção "Links rápidos", estilo bio)
