@@ -39,17 +39,17 @@ window.SITE = {
      src  = imagem salva em img/galeria/ (ex: "img/galeria/post1.jpg")
      post = link do post (ao clicar na foto, abre no Instagram) */
   galeria: [
-    { post: "https://www.instagram.com/p/DfbC7CzRFep/" },
-    { post: "https://www.instagram.com/p/Df8G2n9MsLJ/" },
-    { post: "https://www.instagram.com/p/DdM8lIWtvrn/" },
+    { src: "img/galeria/post1.jpg", post: "https://www.instagram.com/p/DfbC7CzRFep/" },
+    { src: "img/galeria/post2.jpg", post: "https://www.instagram.com/p/Df8G2n9MsLJ/" },
+    { src: "img/galeria/post3.jpg", post: "https://www.instagram.com/p/DdM8lIWtvrn/" },
     // Fotos locais também funcionam: { src: "img/galeria/01.jpg", legenda: "Resultado" },
   ],
 
   /* Vídeos do bio site: cartão com capa + título que abre direto no TikTok.
      capa = imagem salva em img/videos/ (ex: "img/videos/video1.jpg") */
   videos: [
-    { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7429424428087315718", titulo: "Aprenda a higienizar sua extensão" },
-    { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7482800778604809477", titulo: "Tutorial: mimo para clientes" },
+    { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7429424428087315718", titulo: "Aprenda a higienizar sua extensão", capa: "img/videos/video1.jpg" },
+    { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7482800778604809477", titulo: "Tutorial: mimo para clientes", capa: "img/videos/video2.jpg" },
     { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7498473794906885381", titulo: "Conheça o Demodex! O bichinho que vive aí nos seus olhos" },
     { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7416355138392083717", titulo: "Aprenda a treinar acoplagem sem modelo!" },
   ],
