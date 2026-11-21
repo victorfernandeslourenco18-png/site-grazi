@@ -117,7 +117,7 @@
   if (S.endereco) {
     $("#addr").textContent = S.endereco;
     $("#mapsBtn").href = mapsUrl;
-    $("#mapBox").innerHTML = `<iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa" src="https://www.google.com/maps?q=${encodeURIComponent(S.endereco)}&output=embed"></iframe>`;
+    $("#mapBox").innerHTML = `<iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa" src="https://www.google.com/maps?q=${encodeURIComponent(S.endereco)}&hl=pt-BR&output=embed"></iframe>`;
   } else {
     $("#addr").textContent = mapsUrl ? "Clique em “Como chegar” para abrir a rota no Google Maps." : "Endereço em breve.";
     if (mapsUrl) {
