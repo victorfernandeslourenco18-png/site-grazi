@@ -36,8 +36,8 @@ window.SITE = {
   ],
 
   /* Fotos que mais viralizaram no Instagram.
-     Salve as imagens em img/galeria/ e liste aqui.
-     "link" (opcional) = link do post original. */
+     src  = imagem salva em img/galeria/ (ex: "img/galeria/post1.jpg")
+     post = link do post (ao clicar na foto, abre no Instagram) */
   galeria: [
     { post: "https://www.instagram.com/p/DfbC7CzRFep/" },
     { post: "https://www.instagram.com/p/Df8G2n9MsLJ/" },
@@ -45,10 +45,9 @@ window.SITE = {
     // Fotos locais também funcionam: { src: "img/galeria/01.jpg", legenda: "Resultado" },
   ],
 
-  /* Vídeos do bio site. Aceita links do TikTok, Instagram (reel/post) e YouTube.
-     O site gera o player automaticamente. */
+  /* Vídeos do bio site: cartão com capa + título que abre direto no TikTok.
+     capa = imagem salva em img/videos/ (ex: "img/videos/video1.jpg") */
   videos: [
-    // Use o link completo (tiktok.com/@usuario/video/123...) para o player embutido.
     { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7429424428087315718", titulo: "Aprenda a higienizar sua extensão" },
     { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7482800778604809477", titulo: "Tutorial: mimo para clientes" },
     { url: "https://www.tiktok.com/@grazielemaciel_beauty/video/7498473794906885381", titulo: "Conheça o Demodex! O bichinho que vive aí nos seus olhos" },
